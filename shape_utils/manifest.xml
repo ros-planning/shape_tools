@@ -1,0 +1,19 @@
+<package>
+  <description brief="shape_utils">
+
+     shape_utils
+
+  </description>
+  <author>Ioan Sucan</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/shape_utils</url>
+  <depend package="shape_msgs"/>
+
+  <export>
+    <cpp cflags="-I${prefix}/include" lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -lshape_utils"/>
+  </export>
+
+</package>
+
+

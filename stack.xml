@@ -1,0 +1,11 @@
+<stack>
+  <description brief="shape_msgs">Tools for operating on shapes.</description>
+  <author>Maintained by Ioan Sucan</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/moveit</url>
+
+  <depend stack="common_rosdeps" /> <!-- common_rosdeps -->
+  <depend stack="shape_msgs" /> <!-- common_rosdeps -->
+
+</stack>
