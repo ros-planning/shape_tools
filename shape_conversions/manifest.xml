@@ -1,0 +1,20 @@
+<package>
+  <description brief="shape_conversions">
+
+     shape_conversions
+
+  </description>
+  <author>Ioan Sucan</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/shape_conversions</url>
+  <depend package="shape_msgs"/>
+  <depend package="visualization_msgs"/>
+
+  <export>
+    <cpp cflags="-I${prefix}/include" lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -lshape_conversions"/>
+  </export>
+
+</package>
+
+
