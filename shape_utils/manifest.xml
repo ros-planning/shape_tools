@@ -11,9 +11,7 @@
   <depend package="shape_msgs"/>
 
   <export>
-    <cpp cflags="-I${prefix}/include" lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -lshape_utils"/>
+    <cpp cflags="`pkg-config --cflags shape_utils`" lflags="`pkg-config --libs shape_utils`"/>
   </export>
 
 </package>
-
-

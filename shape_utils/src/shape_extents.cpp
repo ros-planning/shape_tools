@@ -33,7 +33,6 @@
  *********************************************************************/
 
 #include "shape_utils/shape_extents.h"
-#include <ros/console.h>
 #include <limits>
 
 void shape_utils::getShapeExtents(const shape_msgs::Shape& shape_msg, double& x_extent, double& y_extent, double& z_extent)

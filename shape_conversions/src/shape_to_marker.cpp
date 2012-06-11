@@ -33,9 +33,10 @@
  *********************************************************************/
 
 #include "shape_conversions/shape_to_marker.h"
-#include <ros/console.h>
+#include <sstream>
+#include <stdexcept>
 
-bool shape_conversions::constructMarkerFromShape(const shape_msgs::Shape &shape_msg, visualization_msgs::Marker &mk, bool use_mesh_triangle_list)
+void shape_conversions::constructMarkerFromShape(const shape_msgs::Shape &shape_msg, visualization_msgs::Marker &mk, bool use_mesh_triangle_list)
 {
   switch (shape_msg.type)
   {
@@ -43,8 +44,7 @@ bool shape_conversions::constructMarkerFromShape(const shape_msgs::Shape &shape_
     mk.type = visualization_msgs::Marker::SPHERE;
     if (shape_msg.dimensions.size() != 1)
     {
-      ROS_ERROR("Unexpected number of dimensions in sphere definition");
-      return false;
+      throw std::runtime_error("Unexpected number of dimensions in sphere definition");
     }
     else
       mk.scale.x = mk.scale.y = mk.scale.z = shape_msg.dimensions[0] * 2.0;
@@ -53,8 +53,7 @@ bool shape_conversions::constructMarkerFromShape(const shape_msgs::Shape &shape_
     mk.type = visualization_msgs::Marker::CUBE;
     if (shape_msg.dimensions.size() != 3)
     {
-      ROS_ERROR("Unexpected number of dimensions in box definition");
-      return false;
+      throw std::runtime_error("Unexpected number of dimensions in box definition");
     }
     else
     {
@@ -67,8 +66,7 @@ bool shape_conversions::constructMarkerFromShape(const shape_msgs::Shape &shape_
     mk.type = visualization_msgs::Marker::CYLINDER;
     if (shape_msg.dimensions.size() != 2)
     {
-      ROS_ERROR("Unexpected number of dimensions in cylinder definition");
-      return false;
+      throw std::runtime_error("Unexpected number of dimensions in cylinder definition");
     }
     else
     {
@@ -80,16 +78,13 @@ bool shape_conversions::constructMarkerFromShape(const shape_msgs::Shape &shape_
     
   case shape_msgs::Shape::MESH:
     if (shape_msg.dimensions.size() != 0) {
-      ROS_ERROR("Unexpected number of dimensions in mesh definition");
-      return false;
+      throw std::runtime_error("Unexpected number of dimensions in mesh definition");
     } 
     if (shape_msg.triangles.size() % 3 != 0) {
-      ROS_ERROR("Number of triangle indices is not divisible by 3");
-      return false;
+      throw std::runtime_error("Number of triangle indices is not divisible by 3");
     }
     if (shape_msg.triangles.empty() || shape_msg.vertices.empty()) {
-      ROS_ERROR("Mesh definition is empty");
-      return false;
+      throw std::runtime_error("Mesh definition is empty");
     }
     if(!use_mesh_triangle_list) {
       mk.type = visualization_msgs::Marker::LINE_LIST;
@@ -114,10 +109,12 @@ bool shape_conversions::constructMarkerFromShape(const shape_msgs::Shape &shape_
         mk.points.push_back(shape_msg.vertices[shape_msg.triangles[i+2]]);
       }
     }
-    return true;
   default:
-    ROS_ERROR("Unknown shape type: %d", (int)shape_msg.type);
-    return false;
+    {
+      std::stringstream ss;
+      ss << shape_msg.type;
+      throw std::runtime_error("Unknown shape type: " + ss.str());
+    }
+    
   }
-  return true;
 }

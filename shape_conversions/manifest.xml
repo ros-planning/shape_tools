@@ -12,7 +12,7 @@
   <depend package="visualization_msgs"/>
 
   <export>
-    <cpp cflags="-I${prefix}/include" lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -lshape_conversions"/>
+    <cpp cflags="`pkg-config --cflags shape_conversions`" lflags="`pkg-config --libs shape_conversions`"/>
   </export>
 
 </package>

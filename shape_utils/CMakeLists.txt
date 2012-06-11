@@ -1,20 +1,24 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+project(shape_utils)
 
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-set(ROS_BUILD_TYPE Release)
+catkin_project(${PROJECT_NAME}
+  LIBRARIES ${PROJECT_NAME}
+  INCLUDE_DIRS include
+  )
 
-rosbuild_init()
+include_directories(include)
 
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+find_package(shape_msgs REQUIRED)
+include_directories(${shape_msgs_INCLUDE_DIRS})
 
-#common commands for building c++ executables and libraries
-rosbuild_add_library(${PROJECT_NAME} src/shape_extents.cpp)
+# horrible hack: catkin does not find this, although it seems it should
+include_directories(/opt/ros/fuerte/include/)
+
+add_library(${PROJECT_NAME} src/shape_extents.cpp)
+
+install(TARGETS ${PROJECT_NAME}
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib)
+
+install(DIRECTORY include/
+        DESTINATION include
+        FILES_MATCHING PATTERN "*.h")

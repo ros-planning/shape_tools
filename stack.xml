@@ -1,11 +1,22 @@
 <stack>
-  <description brief="shape_msgs">Tools for operating on shapes.</description>
-  <author>Maintained by Ioan Sucan</author>
-  <license>BSD</license>  
-  <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/moveit</url>
+  <name>shape_msgs</name>
+  <version>0.1.0</version>
+  <description brief="Shape Message Tools">Tools for operating on shape messages.</description>
+  <author email="isucan@willowgarage.edu">Ioan Sucan</author>
+  <author email="gjones@willowgarage.edu">Gil Jones</author>
+  <maintainer email="isucan@willowgarage.com">Ioan Sucan</maintainer>
 
-  <depend stack="common_rosdeps" /> <!-- common_rosdeps -->
-  <depend stack="shape_msgs" /> <!-- common_rosdeps -->
+  <license>BSD</license>  
+  <copyright>Willow Garage</copyright>
+  <url>http://www.ros.org/wiki/shape_tools</url>
+
+  <review status="unreviewed" notes=""/>
+
+  <build_depends>catkin</build_depends>
+  <build_depends>shape_msgs</build_depends>
+  <build_depends>common_msgs</build_depends>
+
+  <depends>shape_msgs</depends>
+  <depends>common_msgs</depends>
 
 </stack>
