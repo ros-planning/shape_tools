@@ -1,5 +1,5 @@
 <stack>
-  <name>shape_msgs</name>
+  <name>shape_tools</name>
   <version>0.1.0</version>
   <description brief="Shape Message Tools">Tools for operating on shape messages.</description>
   <author email="isucan@willowgarage.edu">Ioan Sucan</author>
