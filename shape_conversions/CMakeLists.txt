@@ -1,4 +1,4 @@
-project(${CATKIN_CURRENT_STACK}_conversions)
+project(shape_conversions)
 
 catkin_project(${PROJECT_NAME}
   LIBRARIES ${PROJECT_NAME}
@@ -23,7 +23,7 @@ install(TARGETS ${PROJECT_NAME}
         LIBRARY DESTINATION lib)
 
 install(DIRECTORY include/
-        DESTINATION include/${CATKIN_CURRENT_STACK}
+        DESTINATION include
         FILES_MATCHING PATTERN "*.h")
 
 # for compatibility with old build system
