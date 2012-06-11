@@ -22,3 +22,8 @@ install(TARGETS ${PROJECT_NAME}
 install(DIRECTORY include/
         DESTINATION include/${CATKIN_CURRENT_STACK}
         FILES_MATCHING PATTERN "*.h")
+
+# for compatibility with old build system
+install(FILES manifest.xml
+        DESTINATION share/${PROJECT_NAME})
+
