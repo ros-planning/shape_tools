@@ -1,6 +1,6 @@
 <stack>
   <name>shape_tools</name>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
   <description brief="Shape Message Tools">Tools for operating on shape messages.</description>
   <author email="isucan@willowgarage.edu">Ioan Sucan</author>
   <author email="gjones@willowgarage.edu">Gil Jones</author>
@@ -13,10 +13,8 @@
   <review status="unreviewed" notes=""/>
 
   <build_depends>catkin</build_depends>
-  <build_depends>shape_msgs</build_depends>
   <build_depends>common_msgs</build_depends>
 
-  <depends>shape_msgs</depends>
   <depends>common_msgs</depends>
 
 </stack>
