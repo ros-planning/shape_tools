@@ -32,12 +32,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
-#include "shape_utils/shape_extents.h"
+#include <shape_tools/shape_extents.h>
 #include <limits>
 
-void shape_utils::getShapeExtents(const shape_msgs::Shape& shape_msg, double& x_extent, double& y_extent, double& z_extent)
+void shape_tools::getShapeExtents(const shape_msgs::Shape& shape_msg, double& x_extent, double& y_extent, double& z_extent)
 {
   x_extent = y_extent = z_extent = 0.0;
+  // this ignores PLANE shapes, as there are no limits to the extents
   if (shape_msg.type == shape_msgs::Shape::SPHERE)
   {
     if (shape_msg.dimensions.size() == 1) 
@@ -52,7 +53,7 @@ void shape_utils::getShapeExtents(const shape_msgs::Shape& shape_msg, double& x_
       y_extent = shape_msg.dimensions[1];
       z_extent = shape_msg.dimensions[2];
     }
-  } else if (shape_msg.type == shape_msgs::Shape::CYLINDER)
+  } else if (shape_msg.type == shape_msgs::Shape::CYLINDER || shape_msg.type == shape_msgs::Shape::CONE)
   {
     if (shape_msg.dimensions.size() == 2)
     {

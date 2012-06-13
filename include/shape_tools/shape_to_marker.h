@@ -35,8 +35,7 @@
 #include <shape_msgs/Shape.h>
 #include <visualization_msgs/Marker.h>
 
-/** \brieg Tools for converting Shape messages */
-namespace shape_conversions
+namespace shape_tools
 {
 
 /** \brief Convert a shape_msgs::Shape \e shape_msg to a
@@ -45,6 +44,6 @@ namespace shape_conversions
     (if \e use_mesh_triangle_list is false) or as a TRIANGLE_LIST (if
     \e use_mesh_triangle_list is true). On incorrect input, this
     function throws a std::runtime_error. */
-void constructMarkerFromShape(const shape_msgs::Shape &shape_msg, visualization_msgs::Marker &marker, bool use_mesh_triangle_list);
+void constructMarkerFromShape(const shape_msgs::Shape &shape_msg, visualization_msgs::Marker &marker, bool use_mesh_triangle_list = true);
 
 }

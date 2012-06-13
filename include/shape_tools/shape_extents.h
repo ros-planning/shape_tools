@@ -34,7 +34,7 @@
 
 #include <shape_msgs/Shape.h>
 
-namespace shape_utils
+namespace shape_tools
 {
 
 /** \brief Get the dimensions of an axis-aligned bounding box for the shape described by \e shape_msg */
