@@ -32,6 +32,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
+#ifndef SHAPE_TOOLS_SHAPE_TO_MARKER_
+#define SHAPE_TOOLS_SHAPE_TO_MARKER_
+
 #include <shape_msgs/Shape.h>
 #include <visualization_msgs/Marker.h>
 
@@ -47,3 +50,5 @@ namespace shape_tools
 void constructMarkerFromShape(const shape_msgs::Shape &shape_msg, visualization_msgs::Marker &marker, bool use_mesh_triangle_list = true);
 
 }
+
+#endif

@@ -32,6 +32,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
+#ifndef SHAPE_TOOLS_SHAPE_EXTENTS_
+#define SHAPE_TOOLS_SHAPE_EXTENTS_
+
 #include <shape_msgs/Shape.h>
 
 namespace shape_tools
@@ -41,3 +44,5 @@ namespace shape_tools
 void getShapeExtents(const shape_msgs::Shape& shape_msg, double& x_extent, double& y_extent, double& z_extent);
 
 }
+
+#endif
