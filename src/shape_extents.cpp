@@ -35,65 +35,58 @@
 #include <shape_tools/shape_extents.h>
 #include <limits>
 
-void shape_tools::getShapeExtents(const shape_msgs::Shape& shape_msg, double& x_extent, double& y_extent, double& z_extent)
+void shape_tools::getShapeExtents(const shape_msgs::SolidPrimitive& shape_msg, double& x_extent, double& y_extent, double& z_extent)
 {
   x_extent = y_extent = z_extent = 0.0;
-  // this ignores PLANE shapes, as there are no limits to the extents
-  if (shape_msg.type == shape_msgs::Shape::SPHERE)
+
+  if (shape_msg.type == shape_msgs::SolidPrimitive::SPHERE)
   {
-    if (shape_msg.dimensions.size() == 1) 
-    {
-      x_extent = y_extent = z_extent = shape_msg.dimensions[0] * 2.0;
-    }
-  } else if (shape_msg.type == shape_msgs::Shape::BOX)
+    x_extent = y_extent = z_extent = shape_msg.dimensions.x;
+  }
+  else if (shape_msg.type == shape_msgs::SolidPrimitive::BOX)
   {
-    if (shape_msg.dimensions.size() == 3)
-    {
-      x_extent = shape_msg.dimensions[0];
-      y_extent = shape_msg.dimensions[1];
-      z_extent = shape_msg.dimensions[2];
-    }
-  } else if (shape_msg.type == shape_msgs::Shape::CYLINDER || shape_msg.type == shape_msgs::Shape::CONE)
+    x_extent = shape_msg.dimensions.x;
+    y_extent = shape_msg.dimensions.y;
+    z_extent = shape_msg.dimensions.z;
+  } 
+  else if (shape_msg.type == shape_msgs::SolidPrimitive::CYLINDER || shape_msg.type == shape_msgs::SolidPrimitive::CONE)
   {
-    if (shape_msg.dimensions.size() == 2)
-    {
-      x_extent = y_extent = shape_msg.dimensions[0] * 2.0;
-      z_extent = shape_msg.dimensions[1];
-    }
-  } else if (shape_msg.type == shape_msgs::Shape::MESH)
+    x_extent = y_extent = shape_msg.dimensions.x;
+    z_extent = shape_msg.dimensions.z;
+  } 
+}
+
+void shape_tools::getShapeExtents(const shape_msgs::Mesh& shape_msg, double& x_extent, double& y_extent, double& z_extent)
+{
+  x_extent = y_extent = z_extent = 0.0;
+  if(shape_msg.vertices.size() > 0) 
   {
-    if(shape_msg.vertices.size() == 0) 
+    double xmin = std::numeric_limits<double>::max(), ymin = std::numeric_limits<double>::max(), zmin = std::numeric_limits<double>::max();
+    double xmax = -std::numeric_limits<double>::max(), ymax = -std::numeric_limits<double>::max(), zmax = -std::numeric_limits<double>::max();
+    for(unsigned int i = 0; i < shape_msg.vertices.size() ; ++i)
     {
-      x_extent = y_extent = z_extent = 0.0;
-    }
-    else
-    {
-      double xmin = std::numeric_limits<double>::max(), ymin = std::numeric_limits<double>::max(), zmin = std::numeric_limits<double>::max();
-      double xmax = -std::numeric_limits<double>::max(), ymax = -std::numeric_limits<double>::max(), zmax = -std::numeric_limits<double>::max();
-      for(unsigned int i = 0; i < shape_msg.vertices.size(); ++i)
-      {
-        if(shape_msg.vertices[i].x > xmax) {
-          xmax = shape_msg.vertices[i].x;
-        }
-        if(shape_msg.vertices[i].x < xmin) {
-          xmin = shape_msg.vertices[i].x;
-        }
-        if(shape_msg.vertices[i].y > ymax) {
-          ymax = shape_msg.vertices[i].y;
-        }
-        if(shape_msg.vertices[i].y < ymin) {
-          ymin = shape_msg.vertices[i].y;
-        }
-        if(shape_msg.vertices[i].z > zmax) {
-          zmax = shape_msg.vertices[i].z;
-        }
-        if(shape_msg.vertices[i].z < zmin) {
-          zmin = shape_msg.vertices[i].z;
-        }
+      if(shape_msg.vertices[i].x > xmax) {
+        xmax = shape_msg.vertices[i].x;
       }
-      x_extent = xmax-xmin;
-      y_extent = ymax-ymin;
-      z_extent = zmax-zmin;
+      if(shape_msg.vertices[i].x < xmin) {
+        xmin = shape_msg.vertices[i].x;
+      }
+      if(shape_msg.vertices[i].y > ymax) {
+        ymax = shape_msg.vertices[i].y;
+      }
+      if(shape_msg.vertices[i].y < ymin) {
+        ymin = shape_msg.vertices[i].y;
+      }
+      if(shape_msg.vertices[i].z > zmax) {
+        zmax = shape_msg.vertices[i].z;
+      }
+      if(shape_msg.vertices[i].z < zmin) {
+        zmin = shape_msg.vertices[i].z;
+      }
     }
+    x_extent = xmax-xmin;
+    y_extent = ymax-ymin;
+    z_extent = zmax-zmin;
   }
 }
+

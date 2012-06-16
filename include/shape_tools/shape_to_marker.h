@@ -35,19 +35,25 @@
 #ifndef SHAPE_TOOLS_SHAPE_TO_MARKER_
 #define SHAPE_TOOLS_SHAPE_TO_MARKER_
 
-#include <shape_msgs/Shape.h>
+#include <shape_msgs/Mesh.h>
+#include <shape_msgs/SolidPrimitive.h>
 #include <visualization_msgs/Marker.h>
 
 namespace shape_tools
 {
 
-/** \brief Convert a shape_msgs::Shape \e shape_msg to a
-    visualization_msgs::Marker \e marker. When \e shape_msg defines a
-    mesh, the corresponding marker will be constructed as a LINE_LIST
-    (if \e use_mesh_triangle_list is false) or as a TRIANGLE_LIST (if
-    \e use_mesh_triangle_list is true). On incorrect input, this
+/** \brief Convert a shape_msgs::Mesh \e shape_msg to a
+    visualization_msgs::Marker \e marker. The corresponding marker
+    will be constructed as a LINE_LIST (if \e use_mesh_triangle_list
+    is false) or as a TRIANGLE_LIST (if \e use_mesh_triangle_list is
+    true). On incorrect input, this function throws a
+    std::runtime_error. */
+void constructMarkerFromShape(const shape_msgs::Mesh &shape_msg, visualization_msgs::Marker &marker, bool use_mesh_triangle_list = true);
+
+/** \brief Convert a shape_msgs::SolidPrimitive \e shape_msg to a
+    visualization_msgs::Marker \e marker. On incorrect input, this
     function throws a std::runtime_error. */
-void constructMarkerFromShape(const shape_msgs::Shape &shape_msg, visualization_msgs::Marker &marker, bool use_mesh_triangle_list = true);
+void constructMarkerFromShape(const shape_msgs::SolidPrimitive &shape_msg, visualization_msgs::Marker &marker);
 
 }
 
