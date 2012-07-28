@@ -41,19 +41,38 @@ void shape_tools::getShapeExtents(const shape_msgs::SolidPrimitive& shape_msg, d
 
   if (shape_msg.type == shape_msgs::SolidPrimitive::SPHERE)
   {
-    x_extent = y_extent = z_extent = shape_msg.dimensions.x;
+    if (shape_msg.dimensions.size() > shape_msgs::SolidPrimitive::SPHERE_RADIUS)
+      x_extent = y_extent = z_extent = shape_msg.dimensions[shape_msgs::SolidPrimitive::SPHERE_RADIUS] * 2.0;
   }
   else if (shape_msg.type == shape_msgs::SolidPrimitive::BOX)
   {
-    x_extent = shape_msg.dimensions.x;
-    y_extent = shape_msg.dimensions.y;
-    z_extent = shape_msg.dimensions.z;
+    if (shape_msg.dimensions.size() > shape_msgs::SolidPrimitive::BOX_X &&
+        shape_msg.dimensions.size() > shape_msgs::SolidPrimitive::BOX_Y &&
+        shape_msg.dimensions.size() > shape_msgs::SolidPrimitive::BOX_Z)
+    {
+      x_extent = shape_msg.dimensions[shape_msgs::SolidPrimitive::BOX_X];
+      y_extent = shape_msg.dimensions[shape_msgs::SolidPrimitive::BOX_Y];
+      z_extent = shape_msg.dimensions[shape_msgs::SolidPrimitive::BOX_Z];
+    }
   } 
-  else if (shape_msg.type == shape_msgs::SolidPrimitive::CYLINDER || shape_msg.type == shape_msgs::SolidPrimitive::CONE)
+  else if (shape_msg.type == shape_msgs::SolidPrimitive::CYLINDER)
   {
-    x_extent = y_extent = shape_msg.dimensions.x;
-    z_extent = shape_msg.dimensions.z;
+    if (shape_msg.dimensions.size() > shape_msgs::SolidPrimitive::CYLINDER_RADIUS &&
+        shape_msg.dimensions.size() > shape_msgs::SolidPrimitive::CYLINDER_HEIGHT)
+    {
+      x_extent = y_extent = shape_msg.dimensions[shape_msgs::SolidPrimitive::CYLINDER_RADIUS] * 2.0;
+      z_extent = shape_msg.dimensions[shape_msgs::SolidPrimitive::CYLINDER_HEIGHT];
+    }
   } 
+  else if (shape_msg.type == shape_msgs::SolidPrimitive::CONE)
+  {
+    if (shape_msg.dimensions.size() > shape_msgs::SolidPrimitive::CONE_RADIUS &&
+        shape_msg.dimensions.size() > shape_msgs::SolidPrimitive::CONE_HEIGHT)
+    {
+      x_extent = y_extent = shape_msg.dimensions[shape_msgs::SolidPrimitive::CONE_RADIUS] * 2.0;
+      z_extent = shape_msg.dimensions[shape_msgs::SolidPrimitive::CONE_HEIGHT];
+    }
+  }
 }
 
 void shape_tools::getShapeExtents(const shape_msgs::Mesh& shape_msg, double& x_extent, double& y_extent, double& z_extent)

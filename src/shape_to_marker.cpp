@@ -41,20 +41,51 @@ void shape_tools::constructMarkerFromShape(const shape_msgs::SolidPrimitive &sha
   switch (shape_msg.type)
   {
   case shape_msgs::SolidPrimitive::SPHERE:
-    mk.type = visualization_msgs::Marker::SPHERE;
-    mk.scale.x = mk.scale.y = mk.scale.z = shape_msg.dimensions.x;
+    if (shape_msg.dimensions.size() <= shape_msgs::SolidPrimitive::SPHERE_RADIUS)
+      throw std::runtime_error("Insufficient dimensions in sphere definition");
+    else
+    {
+      mk.type = visualization_msgs::Marker::SPHERE;
+      mk.scale.x = mk.scale.y = mk.scale.z = shape_msg.dimensions[shape_msgs::SolidPrimitive::SPHERE_RADIUS] * 2.0;
+    }
     break;
   case shape_msgs::SolidPrimitive::BOX:
-    mk.type = visualization_msgs::Marker::CUBE;
-    mk.scale = shape_msg.dimensions;
+    if (shape_msg.dimensions.size() <= shape_msgs::SolidPrimitive::BOX_X ||
+        shape_msg.dimensions.size() <= shape_msgs::SolidPrimitive::BOX_Y ||
+        shape_msg.dimensions.size() <= shape_msgs::SolidPrimitive::BOX_Z)
+      throw std::runtime_error("Insufficient dimensions in box definition");
+    else
+    {
+      mk.type = visualization_msgs::Marker::CUBE;
+      mk.scale.x = shape_msg.dimensions[shape_msgs::SolidPrimitive::BOX_X];
+      mk.scale.y = shape_msg.dimensions[shape_msgs::SolidPrimitive::BOX_Y];
+      mk.scale.z = shape_msg.dimensions[shape_msgs::SolidPrimitive::BOX_Z];
+    }
     break;
   case shape_msgs::SolidPrimitive::CONE:
-    // there is no CONE marker, so this produces a cylinder marker as well
+    if (shape_msg.dimensions.size() <= shape_msgs::SolidPrimitive::CONE_RADIUS ||
+        shape_msg.dimensions.size() <= shape_msgs::SolidPrimitive::CONE_HEIGHT)
+      throw std::runtime_error("Insufficient dimensions in cone definition");
+    else
+    {
+      // there is no CONE marker, so this produces a cylinder marker as well 
+      mk.type = visualization_msgs::Marker::CYLINDER;
+      mk.scale.x = shape_msg.dimensions[shape_msgs::SolidPrimitive::CONE_RADIUS] * 2.0;
+      mk.scale.y = mk.scale.x;
+      mk.scale.z = shape_msg.dimensions[shape_msgs::SolidPrimitive::CONE_HEIGHT];
+    }
+    break;
   case shape_msgs::SolidPrimitive::CYLINDER:
-    mk.type = visualization_msgs::Marker::CYLINDER;
-    mk.scale.x = shape_msg.dimensions.x;
-    mk.scale.y = mk.scale.x;
-    mk.scale.z = shape_msg.dimensions.z;
+    if (shape_msg.dimensions.size() <= shape_msgs::SolidPrimitive::CYLINDER_RADIUS ||
+        shape_msg.dimensions.size() <= shape_msgs::SolidPrimitive::CYLINDER_HEIGHT)
+      throw std::runtime_error("Insufficient dimensions in cylinder definition");
+    else
+    {
+      mk.type = visualization_msgs::Marker::CYLINDER;
+      mk.scale.x = shape_msg.dimensions[shape_msgs::SolidPrimitive::CYLINDER_RADIUS] * 2.0;
+      mk.scale.y = mk.scale.x;
+      mk.scale.z = shape_msg.dimensions[shape_msgs::SolidPrimitive::CYLINDER_HEIGHT];
+    }
     break;
   default:
     {

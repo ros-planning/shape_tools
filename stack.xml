@@ -1,6 +1,6 @@
 <stack>
   <name>shape_tools</name>
-  <version>0.1.7</version>
+  <version>0.1.8</version>
   <description brief="Shape Message Tools">Tools for operating on shape messages.</description>
   <author email="isucan@willowgarage.edu">Ioan Sucan</author>
   <author email="gjones@willowgarage.edu">Gil Jones</author>
