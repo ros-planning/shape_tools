@@ -1,7 +1,7 @@
-<stack>
+<package>
   <name>shape_tools</name>
-  <version>0.1.9</version>
-  <description brief="Shape Message Tools">Tools for operating on shape messages.</description>
+  <version>0.1.10</version>
+  <description>Tools for operating on shape messages.</description>
   <author email="isucan@willowgarage.edu">Ioan Sucan</author>
   <author email="gjones@willowgarage.edu">Gil Jones</author>
   <maintainer email="isucan@willowgarage.com">Ioan Sucan</maintainer>
@@ -10,11 +10,9 @@
   <copyright>Willow Garage</copyright>
   <url>http://www.ros.org/wiki/shape_tools</url>
 
-  <review status="unreviewed" notes=""/>
+  <build_depend>catkin</build_depend>
+  <build_depend>common_msgs</build_depend>
 
-  <build_depends>catkin</build_depends>
-  <build_depends>common_msgs</build_depends>
+  <run_depend>common_msgs</run_depend>
 
-  <depends>common_msgs</depends>
-
-</stack>
+</package>
