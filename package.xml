@@ -1,6 +1,6 @@
 <package>
   <name>shape_tools</name>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   <description>Tools for operating on shape messages.</description>
   <author email="isucan@willowgarage.edu">Ioan Sucan</author>
   <author email="gjones@willowgarage.edu">Gil Jones</author>
