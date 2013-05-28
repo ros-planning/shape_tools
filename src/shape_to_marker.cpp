@@ -107,14 +107,14 @@ void shape_tools::constructMarkerFromShape(const shape_msgs::Mesh &shape_msg, vi
     for (std::size_t i = 0 ; i < shape_msg.triangles.size() ; ++i)
     {
       mk.points.push_back(shape_msg.vertices[shape_msg.triangles[i].vertex_indices[0]]);
-      mk.points.push_back(shape_msg.vertices[shape_msg.triangles[i].vertex_indices[0]]);
-      mk.points.push_back(shape_msg.vertices[shape_msg.triangles[i].vertex_indices[0]]);
+      mk.points.push_back(shape_msg.vertices[shape_msg.triangles[i].vertex_indices[1]]);
+      mk.points.push_back(shape_msg.vertices[shape_msg.triangles[i].vertex_indices[2]]);
     }
   }
   else
   {
     mk.type = visualization_msgs::Marker::LINE_LIST;
-    mk.scale.x = mk.scale.y = mk.scale.z = 1.0;
+    mk.scale.x = mk.scale.y = mk.scale.z = 0.01;
     for (std::size_t i = 0 ; i < shape_msg.triangles.size() ; ++i)
     {
       mk.points.push_back(shape_msg.vertices[shape_msg.triangles[i].vertex_indices[0]]);
