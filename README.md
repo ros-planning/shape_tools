@@ -1,6 +1,8 @@
 shape_tools
 ===========
 
+THIS PACKAGE HAS BEEN MERGED WITH [geometric_shapes](https://github.com/ros-planning/geometric_shapes) AND HAS BEEN DEPRECATED
+
 Tools for operating on shape messages.
 
 ## Build Status
